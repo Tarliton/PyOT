@@ -1,12 +1,13 @@
-import config
-import builtins
-from tornado import gen, ioloop
-from collections import deque
-import random, sys
-from tornado.gen import Return
+import os
+import sys
 import time
+from collections import deque
 
-builtins.PYOT_RUN_SQLOPERATIONS = True
+from tornado import gen, ioloop
+from tornado.gen import Return
+
+import config
+
 connections = None
 
 if config.sqlModule == "mysql":
@@ -14,11 +15,32 @@ if config.sqlModule == "mysql":
     
     @gen.coroutine
     def connect():
-        if PYOT_RUN_SQLOPERATIONS:
-            import asynctorndb
-            # Try one connection first.
+        # I hate doing this but I have no choice
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__name__)), 'game'))
+        import asynctorndb
+        # Try one connection first.
+        conn = asynctorndb.Connect(host=config.sqlHost, user=config.sqlUsername, passwd=config.sqlPassword,
+                                   database=config.sqlDatabase, no_delay = False, charset='utf8')
+        spawn = config.sqlConnections
+        future = conn.connect()
+        try:
+            yield future
+        except:
+            pass
+
+        if future.exception():
+            print("SQL Connection to localhost failed, trying 127.0.0.1")
+            if config.sqlHost == "localhost":
+                config.sqlHost = "127.0.0.1"
+                print("SQL Connection with localhost failed, trying 127.0.0.1")
+        else:
+            spawn -= 1
+            connections.append(conn)
+
+        # Make connection pool.
+        for x in range(spawn):
             conn = asynctorndb.Connect(host = config.sqlHost, user=config.sqlUsername, passwd=config.sqlPassword, database=config.sqlDatabase, no_delay = False, charset='utf8')
-            spawn = config.sqlConnections
+
             future = conn.connect()
             try:
                 yield future
@@ -26,146 +48,119 @@ if config.sqlModule == "mysql":
                 pass
 
             if future.exception():
-                print("SQL Connection to localhost failed, trying 127.0.0.1")
-                if config.sqlHost == "localhost":
-                    config.sqlHost = "127.0.0.1"
-                    print("SQL Connection with localhost failed, trying 127.0.0.1")
+                print("SQL Connection failed", future.exception(), "check SQL settings in config.py!")
+                sys.exit()
             else:
-                spawn -= 1
                 connections.append(conn)
-
-
-            # Make connection pool.
-            for x in range(spawn):
-                conn = asynctorndb.Connect(host = config.sqlHost, user=config.sqlUsername, passwd=config.sqlPassword, database=config.sqlDatabase, no_delay = False, charset='utf8')
-
-                future = conn.connect()
-                try:
-                    yield future
-                except:
-                    pass
-
-                if future.exception():
-                    print("SQL Connection failed", future.exception(), "check SQL settings in config.py!")
-                    sys.exit()
-                else:
-                    connections.append(conn)
 
     def runOperation(*argc):
         ioloop.IOLoop.instance().add_callback(_runOperation, *argc)
 
     @gen.coroutine
     def _runOperation(*argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            # Get a connection.
-            conn = None
-            while not conn:
-                try:
-                    conn = connections.popleft()
-                except:
-                    conn = None
-
-                if not conn:
-                    yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
-
-            future = conn.execute(*argc)
+        # Get a connection.
+        conn = None
+        while not conn:
             try:
-                yield future
+                conn = connections.popleft()
             except:
-                pass
+                conn = None
+
+            if not conn:
+                yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
+
+        future = conn.execute(*argc)
+        try:
+            yield future
+        except:
+            pass
 
 
-            exc = future.exc_info()
-            if exc:
-                print(exc[0].__name__, exc[1], 'from query:', argc[0])
+        exc = future.exc_info()
+        if exc:
+            print(exc[0].__name__, exc[1], 'from query:', argc[0])
 
-            # Put connection back
-            connections.append(conn)
+        # Put connection back
+        connections.append(conn)
 
     @gen.coroutine
     def runQuery(*argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            # Get a connection.
-            conn = None
-            while not conn:
-                try:
-                    conn = connections.popleft()
-                except:
-                    conn = None
-
-                if not conn:
-                    yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
-
-            future = conn.query(*argc)
+        # Get a connection.
+        conn = None
+        while not conn:
             try:
-                res = yield future
+                conn = connections.popleft()
             except:
-                res = None
+                conn = None
 
-            exc = future.exc_info()
-            if exc:
-                print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
-            exc = future.exception()
+            if not conn:
+                yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
+
+        future = conn.query(*argc)
+        try:
+            res = yield future
+        except:
+            res = None
+
+        exc = future.exc_info()
+        if exc:
+            print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
+        exc = future.exception()
 
 
 
-            # Put connection back
-            connections.append(conn)
+        # Put connection back
+        connections.append(conn)
 
-            raise Return(res)
-        raise Return({})
+        raise Return(res)
 
     @gen.coroutine
     def runQueryWithException(*argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            # Get a connection.
-            conn = None
-            while not conn:
-                try:
-                    conn = connections.popleft()
-                except:
-                    conn = None
+        # Get a connection.
+        conn = None
+        while not conn:
+            try:
+                conn = connections.popleft()
+            except:
+                conn = None
 
-                if not conn:
-                    yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
+            if not conn:
+                yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
 
-            future = conn.query(*argc)
+        future = conn.query(*argc)
 
-            yield future
-            # Put connection back
-            connections.append(conn)
+        yield future
+        # Put connection back
+        connections.append(conn)
 
-            raise Return(future)
-        raise Return({})
+        raise Return(future)
 
     @gen.coroutine
     def runOperationLastId(*argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            # Get a connection.
-            conn = None
-            while not conn:
-                try:
-                    conn = connections.popleft()
-                except:
-                    conn = None
-
-                if not conn:
-                    yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
-
-            future = conn.execute_lastrowid(*argc)
-
+        # Get a connection.
+        conn = None
+        while not conn:
             try:
-                res = yield future
+                conn = connections.popleft()
             except:
-                res = None
-            exc = future.exc_info()
-            if exc:
-                print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
-            # Put connection back
-            connections.append(conn)
+                conn = None
 
-            raise Return(res)
-        raise Return(random.randint(1, 10000))
+            if not conn:
+                yield gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 0.05)
+
+        future = conn.execute_lastrowid(*argc)
+
+        try:
+            res = yield future
+        except:
+            res = None
+        exc = future.exc_info()
+        if exc:
+            print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
+        # Put connection back
+        connections.append(conn)
+
+        raise Return(res)
 
 elif config.sqlModule == "tornado-mysql":
     from tornado_mysql import pools, cursors
@@ -175,74 +170,65 @@ elif config.sqlModule == "tornado-mysql":
 
     @gen.coroutine
     def connect():
-        if PYOT_RUN_SQLOPERATIONS:
-            global connections
-            connections = pools.Pool(dict(host=config.sqlHost, user=config.sqlUsername, passwd=config.sqlPassword, db=config.sqlDatabase, cursorclass=cursors.DictCursor, no_delay=True), max_idle_connections=config.sqlConnections)
-            yield connections._get_conn()
-        raise Return(True)
+        global connections
+        connections = pools.Pool(dict(host=config.sqlHost, user=config.sqlUsername, passwd=config.sqlPassword, db=config.sqlDatabase, cursorclass=cursors.DictCursor, no_delay=True), max_idle_connections=config.sqlConnections)
+        yield connections._get_conn()
         
     def runOperation(*argc):
         ioloop.IOLoop.instance().add_callback(_runOperation, *argc)
 
     @gen.coroutine
     def _runOperation(query, *argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            future = connections.execute(query, argc)
-            try:
-                yield future
-            except:
-                pass
+        future = connections.execute(query, argc)
+        try:
+            yield future
+        except:
+            pass
 
 
-            exc = future.exc_info()
-            if exc:
-                print(exc[0].__name__, exc[1], 'from query:', argc[0])
+        exc = future.exc_info()
+        if exc:
+            print(exc[0].__name__, exc[1], 'from query:', argc[0])
 
     @gen.coroutine
     def runQuery(query, *argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            future = connections.execute(query, argc)
-            try:
-                res = yield future
-            except:
-                res = None
+        future = connections.execute(query, argc)
+        try:
+            res = yield future
+        except:
+            res = None
 
-            exc = future.exc_info()
-            if exc:
-                print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
-            exc = future.exception()
+        exc = future.exc_info()
+        if exc:
+            print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
+        exc = future.exception()
 
 
-            raise Return(res.fetchall())
-        raise Return({})
+        raise Return(res.fetchall())
 
     @gen.coroutine
     def runQueryWithException(query, *argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            future = connections.execute(query, argc)
+        future = connections.execute(query, argc)
 
-            yield future
+        yield future
 
-            raise Return(future)
-        raise Return({})
+        raise Return(future)
 
     @gen.coroutine
     def runOperationLastId(query, *argc):
-        if PYOT_RUN_SQLOPERATIONS:
-            future = connections.execute(query, argc)
 
-            try:
-                res = yield future
-            except:
-                res = None
-            exc = future.exc_info()
-            if exc:
-                print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
-            # Put connection back
-            connections.append(conn)
+        future = connections.execute(query, argc)
 
-            raise Return(res.lastrowid)
-        raise Return(random.randint(1, 10000))
+        try:
+            res = yield future
+        except:
+            res = None
+        exc = future.exc_info()
+        if exc:
+            print(exc[0].__class__.__name__, exc[1], 'from query:', argc[0])
+        # Put connection back
+        connections.append(conn)
+
+        raise Return(res.lastrowid)
 else:
-    raise ImportError("Unsupported sqlModule!");
-
+    raise ImportError("Unsupported sqlModule!")

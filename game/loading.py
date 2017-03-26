@@ -1,130 +1,48 @@
 import builtins
 from tornado import gen, ioloop
-builtins.gen = gen
 from collections import deque
 import time
-import game.map
-import config
 import userconfig
 import math
 from . import sql
 from . import otjson
-import game.const
 import sys
 import random
-import game.vocation
-import game.resource
-import game.scriptsystem
-import game.errors
 import glob
-import game.protocol
-import game.logger
-import game.chat
 import re
-import subprocess
-import platform
 import os
-import game.deathlist
-import game.ban
-import game.position
 import config
-import game.item
-import game.house, game.guild
-import game.language
-import game.player, game.creature, game.npc, game.monster, game.spell, game.party
-import game.conditions
-import game.market
+from game import item
 from . import inflect
+import pickle
+import game
 
-try:
-    import pickle as pickle
-except:
-    import pickle
-
-try:
-    from io import StringIO
-except:
-    from io import StringIO
-
-MERCURIAL_REV = 0
-builtins.IS_IN_TEST = False
 builtins.SERVER_START = time.time() - config.tibiaTimeOffset
 IS_ONLINE = False
 IS_RUNNING = True
 
-# COLORS
-import platform
-if platform.system() == "Windows":
-    # No colorss? :(
-    _txtColor = lambda x, c: x
-else:
-    def _txtColor(text, color):
 
-        if color == "blue":
-            color = 34
-        elif color == "red":
-            color = 31
-        elif color == "green":
-            color = 32
-        elif color == "yellow":
-            color = 33
-        RESET_SEQ = "\033[0m"
-        COLOR_SEQ = "\033[1;%dm"
+def _txtColor(text, color):
+    if color == "blue":
+        color = 34
+    elif color == "red":
+        color = 31
+    elif color == "green":
+        color = 32
+    elif color == "yellow":
+        color = 33
+    RESET_SEQ = "\033[0m"
+    COLOR_SEQ = "\033[1;%dm"
 
-        return "%s%s%s" % (COLOR_SEQ % color, text, RESET_SEQ)
+    return "%s%s%s" % (COLOR_SEQ % color, text, RESET_SEQ)
 
 
-def windowsLoading():
-    if config.consoleColumns:
-        os.system("mode con cols=%d" % config.consoleColumns)
-    if config.consoleColor:
-        os.system("color %s" % config.consoleColor)
-
-# The loader rutines, async loading :)
 @gen.coroutine
 def loader(timer):
-    # XXX: Remember, game.XXX -> sys.modules["game.XXX"] because game is set later on. And somehow this causes weird behavior :/
-
-    if IS_IN_TEST:
-        # Also ugly hack.
-        sys.stdout = StringIO()
-
-    # Attempt to get the Merucurial rev
-    if os.path.exists(".hg"):
-        try:
-            # This will work independantly of the OS (no need to have mercurial installed!
-            # Not sure if it's 100% accurate, be aware that this is not the active rev, but the latest fetched one.
-            # Downloaded packages doesn't have this file, thats why we keep in in a try, it will raise.
-
-            MERCURIAL_REV = (os.path.getsize(".hg/store/00changelog.i") // 64) - 1 # Since mercurial start on rev 0, we need to -1 to get the rev number.
-            #MERCURIAL_REV = subprocess.check_output(["hg", "parents", "--template={rev}"])
-            print("Begin loading (PyOT r%s)" % MERCURIAL_REV)
-            if platform.system() == "Windows":
-                os.system("title PyOT r%s" % MERCURIAL_REV)
-                windowsLoading()
-            else:
-                sys.stdout.write("\x1b]2;PyOT r%s\x07" % MERCURIAL_REV)
-
-        except (OSError, subprocess.CalledProcessError):
-            # hg not in space.
-            print("Begin loading...")
-            if platform.system() == "Windows":
-                os.system("title PyOT")
-                windowsLoading()
-            else:
-                sys.stdout.write("\x1b]2;PyOT\x07")
-    else:
-        MERCURIAL_REV = "unknown"
-        print("Begin loading...")
-        if platform.system() == "Windows":
-            os.system("title PyOT")
-            windowsLoading()
-        else:
-            sys.stdout.write("\x1b]2;PyOT\x07")
-
+    sys.stdout.write("\x1b]2;PyOT\x07")
 
     # Begin loading items
-    sys.modules["game.item"].loadItems()
+    item.loadItems()
 
     # Initialize SQL
     yield sql.connect()
@@ -185,7 +103,7 @@ def loader(timer):
     # Inflect support in scripts.
     builtins.inflect = inflect.engine()
     
-    import game.pathfinder
+
 
     builtins.register = game.scriptsystem.register
     builtins.registerFirst = game.scriptsystem.registerFirst
@@ -275,11 +193,6 @@ def loader(timer):
     # JSON
     builtins.json = otjson
 
-    # Web
-    if config.enableWebProtocol:
-        import tornado.web
-        builtins.RequestHandler = tornado.web.RequestHandler
-        builtins.registerWeb = game.scriptsystem.registerWeb
   
     class Globalizer(object):
         __slots__ = ()
@@ -370,8 +283,7 @@ def loader(timer):
             game.scriptsystem.get("chargeRent").run(house=house)
             _charge(house)
         else:
-            if not IS_IN_TEST:
-                call_later((timer - house.paid) % config.chargeRentEvery, _charge, house)
+            call_later((timer - house.paid) % config.chargeRentEvery, _charge, house)
 
     # Loading languages
     if config.enableTranslations:
@@ -389,7 +301,7 @@ def loader(timer):
     print("%50s\n" % _txtColor("\t[DONE]", "blue"))
 
     # Do we issue saves?
-    if config.doSaveAll and not IS_IN_TEST:
+    if config.doSaveAll:
         print("> > Schedule global save...", end=' ')
         call_later(config.saveEvery, game.functions.looper, game.functions.saveAll, config.saveEvery)
         print("%50s\n" % _txtColor("\t[DONE]", "blue"))
@@ -401,14 +313,13 @@ def loader(timer):
     # Reset online status on shutdown
     game.scriptsystem.get("shutdown").register(lambda **k: sql.runOperation("UPDATE players SET online = 0"), False)
     # Light stuff
-    if not IS_IN_TEST:
-        print("> > Turn world time and light on...", end=' ')
-        lightchecks = config.tibiaDayLength / float(config.tibiaFullDayLight - config.tibiaNightLight)
+    print("> > Turn world time and light on...", end=' ')
+    lightchecks = config.tibiaDayLength / float(config.tibiaFullDayLight - config.tibiaNightLight)
 
-        call_later(lightchecks, game.functions.looper, game.functions.checkLightLevel, lightchecks)
-        print("%45s" % _txtColor("\t[DONE]", "blue"))
+    call_later(lightchecks, game.functions.looper, game.functions.checkLightLevel, lightchecks)
+    print("%45s" % _txtColor("\t[DONE]", "blue"))
 
-        call_later(60, game.functions.looper, pathfinder.clear, 60)
+    call_later(60, game.functions.looper, pathfinder.clear, 60)
 
     # Now we're online :)
     print(_txtColor("Message of the Day: %s" % config.motd, "red"))

@@ -1,5 +1,5 @@
 from tornado.tcpserver import *
-from packet import TibiaPacketReader
+from game.packet import TibiaPacketReader
 import config
 from struct import unpack
 import socket

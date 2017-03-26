@@ -1,13 +1,14 @@
 from game.creature import Creature, uniqueId
-from game.monster import Monster, MonsterBrain
-import game.map, game.scriptsystem
-import copy, random, time
+from game.monster import MonsterBrain
+import game.map
+import game.scriptsystem
+import random
+import time
 import game.errors
 import game.const
 import game.item
 import config
 import game.scriptsystem
-from packet import TibiaPacket
 from inspect import isfunction
 import collections
 

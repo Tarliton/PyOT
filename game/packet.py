@@ -1,7 +1,7 @@
 from struct import unpack, pack, Struct
-from otcrypto import encryptXTEA
+from game.otcrypto import encryptXTEA
 from zlib import adler32
-from position import StackPosition, Position
+from game.position import StackPosition, Position
 import config
 
 uint8Prebuild = [b""] * 256

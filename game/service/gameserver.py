@@ -1,12 +1,12 @@
-import protocolbase
+from game import protocolbase
 import game.protocol
 from collections import deque
 import config
-import otcrypto
+from game import otcrypto
 import game.scriptsystem
-from packet import TibiaPacket
+from game.packet import TibiaPacket
 import game.player
-from game.map import getTile,removeCreature
+from game.map import getTile
 from game.functions import updateTile
 import struct
 import time

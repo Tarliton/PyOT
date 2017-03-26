@@ -1,17 +1,14 @@
-import protocolbase
-from packet import TibiaPacket
-import os
-import otcrypto
+from game import protocolbase
+from game.packet import TibiaPacket
+from game import otcrypto
+from tornado import gen
 import config
 import socket
 import time
 import pickle
-import sys
 
-if os.path.exists('IP_CACHE') and os.path.getmtime('IP_CACHE') > time.time() - 2400:
-    IPS = pickle.load(open('IP_CACHE', 'rb'))
-else:
-    IPS = {}
+IPS = {}
+
 
 class LoginProtocol(protocolbase.TibiaProtocol):
     tcpNoDelay = True
@@ -23,7 +20,6 @@ class LoginProtocol(protocolbase.TibiaProtocol):
             packet.uint8()
         except:
             return
-
 
         if config.letGameServerRunTheLoginServer:
             pos = packet.pos
@@ -221,6 +217,7 @@ class LoginProtocol(protocolbase.TibiaProtocol):
         packet.string(message) # Error message
         packet.send(self)
         self.loseConnection()
+
 
 class LoginFactory(protocolbase.TibiaFactory):
     __slots__ = ()
