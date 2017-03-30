@@ -1,12 +1,12 @@
 import protocolbase
-from packet import TibiaPacket, TibiaPacketReader
+from packet import TPacket, TibiaPacketReader
 import sql
 import otcrypto
 import config
 import socket
 from struct import pack
 
-class SimplePacket(TibiaPacket):
+class SimplePacket(TPacket):
     def send(self, stream):
         if not stream or not self.data: return
         stream.transport.write(self.data)
@@ -48,7 +48,7 @@ IPS = {}
 # * Support in vapus custom client generator.
 # * Authorization.
 
-class extProtocol(protocolbase.TibiaProtocol):
+class extProtocol(protocolbase.TProtocol):
     files = {}
     def onInit(self):
         self.gotFirst = True
@@ -139,7 +139,7 @@ class extProtocol(protocolbase.TibiaProtocol):
     def resource(self, res, data):
         self.files[res] = data
 
-class ExtFactory(protocolbase.TibiaFactory):
+class ExtFactory(protocolbase.TFactory):
     __slots__ = ()
     protocol = extProtocol
 

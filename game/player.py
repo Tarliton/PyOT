@@ -35,6 +35,7 @@ allPlayersObject = allPlayers.values() # Quick speedup
 if config.enableExtensionProtocol:
     from .service.extserver import IPS as MEDIA_IPS
 
+
 class Player(PlayerTalking, PlayerAttacks, Creature): # Creature last.
     def __init__(self, client, data):
         # XXX: Hack.

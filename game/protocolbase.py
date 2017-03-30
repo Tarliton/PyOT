@@ -7,7 +7,7 @@ import socket
 if config.checkAdler32:
     from zlib import adler32
 
-class TibiaProtocol:
+class TProtocol:
     #__slots__ = 'gotFirst', 'xtea', 'buffer', 'nextPacketLength', 'bufferLength'
     enableTcpNoDelay = False
     webSocket = False
@@ -101,8 +101,8 @@ class TibiaProtocol:
         self.onConnectionLost()
         call_later(1, self.transport.close) # We add a 1sec delay to the lose to prevent unfinished writtings from happending
 
-class TibiaFactory(TCPServer):
-    #__slots__ = 'clientCount'
+
+class TFactory(TCPServer):
     protocol = None # This HAVE to be overrided!
 
     def handle_stream(self, stream, address):

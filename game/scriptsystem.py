@@ -21,7 +21,8 @@ class Scripts(object):
     def __init__(self, parameters = ()):
         self.scripts = []
         self.parameters = parameters
-        self.weaks = set() 
+        self.weaks = set()
+
     def register(self, callback, weakfunc=True):
         if weakfunc:
             self.weaks.add(callback)
@@ -41,7 +42,7 @@ class Scripts(object):
             except:
                 handle_script_exception()
             else:
-                if res == False:
+                if not res:
                     return False
 
         return res

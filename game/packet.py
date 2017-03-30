@@ -4,16 +4,14 @@ from zlib import adler32
 from game.position import StackPosition, Position
 import config
 
-uint8Prebuild = [b""] * 256
-for n in range(256):
-    uint8Prebuild[n] = pack("<B", n) 
+uint8Prebuild = [pack('<B', n) for n in range(256)]
 
 pack_uint16 = Struct("<H").pack
 pack_uint32 = Struct("<I").pack
 pack_header = Struct("<HI").pack
 
-class TibiaPacketReader(object):
-    __slots__ = ('pos', 'data')
+
+class TibiaPacketReader:
     def __init__(self, data):
         self.pos = 0
         self.data = data
@@ -22,6 +20,7 @@ class TibiaPacketReader(object):
     def uint8(self):
         self.pos += 1
         return self.data[self.pos-1]
+
     def int8(self):
         self.pos += 1
         return unpack("<b", self.data[self.pos-1])[0]
@@ -30,6 +29,7 @@ class TibiaPacketReader(object):
     def uint16(self):
         self.pos += 2
         return unpack("<H", self.data[self.pos-2:self.pos])[0]
+
     def int16(self):
         self.pos += 2
         return unpack("<h", self.data[self.pos-2:self.pos])[0]
@@ -38,6 +38,7 @@ class TibiaPacketReader(object):
     def uint32(self):
         self.pos += 4
         return unpack("<I", self.data[self.pos-4:self.pos])[0]
+
     def int32(self):
         self.pos += 4
         return unpack("<i", self.data[self.pos-4:self.pos])[0]
@@ -46,6 +47,7 @@ class TibiaPacketReader(object):
     def uint64(self):
         self.pos += 8
         return unpack("<Q", self.data[self.pos-8:self.pos])[0]
+
     def int64(self):
         self.pos += 8
         return unpack("<q", self.data[self.pos-8:self.pos])[0]
@@ -76,17 +78,18 @@ class TibiaPacketReader(object):
 
     def position(self, instance=None):
         self.pos += 5
-        x,y,z = unpack("<HHB", self.data[self.pos - 5:self.pos])
+        x, y, z = unpack("<HHB", self.data[self.pos - 5:self.pos])
         return Position(x, y, z, instance)
 
     def stackPosition(self, instance=None):
         self.pos += 6
-        x,y,z, stackPos = unpack("<HHBB", self.data[self.pos - 6:self.pos])
+        x, y, z, stackPos = unpack("<HHBB", self.data[self.pos - 6:self.pos])
         return StackPosition(x, y, z, stackPos, instance)
 
-class TibiaPacket:
+
+class TPacket:
     def __init__(self, header=None):
-        self.data = [b""]
+        self.data = [b'']
         self.raw = self.data.append
         self.length = 0
         self.stream = None
@@ -99,7 +102,7 @@ class TibiaPacket:
         self.length = 0
 
     # 8bit - 1byte, C type: char
-    def uint8(self, data, pack = uint8Prebuild):
+    def uint8(self, data, pack=uint8Prebuild):
         self.raw(pack[data])
         self.length += 1
         
@@ -139,7 +142,7 @@ class TibiaPacket:
         self.uint8(3)
         self.uint32((round(data, 3) * 1000) + 0x7FFFFFFF)
 
-    def string(self, string, pack=pack):
+    def string(self, string):
         length = len(string)
         self.uint16(length)
         self.raw(string.encode('iso8859-1'))

@@ -4,7 +4,7 @@ from collections import deque
 import config
 from game import otcrypto
 import game.scriptsystem
-from game.packet import TibiaPacket
+from game.packet import TPacket
 import game.player
 from game.map import getTile
 from game.functions import updateTile
@@ -14,7 +14,7 @@ from tornado import gen
 
 waitingListIps = deque()
 lastChecks = {}
-class GameProtocol(protocolbase.TibiaProtocol):
+class GameProtocol(protocolbase.TProtocol):
     connections = 0
     tcpNoDelay = True
 
@@ -27,7 +27,7 @@ class GameProtocol(protocolbase.TibiaProtocol):
         self.ping = 0
 
     def onConnect(self):
-        pkg = TibiaPacket()
+        pkg = TPacket()
         pkg.uint8(0x1F)
         pkg.uint32(0xFFFFFFFF) # Used for?
         pkg.uint8(0xFF) # Used for?
@@ -35,13 +35,13 @@ class GameProtocol(protocolbase.TibiaProtocol):
         self.firstConnection = time.time()
 
     def exitWithError(self, message):
-        packet = TibiaPacket(0x14)
+        packet = TPacket(0x14)
         packet.string(message) # Error message
         packet.send(self)
         self.loseConnection()
 
     def exitWaitingList(self, message, slot):
-        packet = TibiaPacket(0x16)
+        packet = TPacket(0x16)
         packet.string(message) # Error message
         packet.uint8(15 + (2 * slot))
         packet.send(self)
@@ -270,7 +270,7 @@ class GameProtocol(protocolbase.TibiaProtocol):
 
         elif packetType == 0x00 and self.transport.address in config.executeProtocolIps:
             self.gotFirst = False
-            t = TibiaPacket()
+            t = TPacket()
             if not config.executeProtocolAuthKeys:
                 self.ready = 2
             try:
@@ -325,7 +325,7 @@ class GameProtocol(protocolbase.TibiaProtocol):
         if self.player:
             return (type)"""
 
-class GameFactory(protocolbase.TibiaFactory):
+class GameFactory(protocolbase.TFactory):
     __slots__ = ()
     protocol = GameProtocol
 

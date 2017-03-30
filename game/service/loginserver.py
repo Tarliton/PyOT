@@ -1,5 +1,5 @@
 from game import protocolbase
-from game.packet import TibiaPacket
+from game.packet import TPacket
 from game import otcrypto
 from tornado import gen
 import config
@@ -10,7 +10,7 @@ import pickle
 IPS = {}
 
 
-class LoginProtocol(protocolbase.TibiaProtocol):
+class LoginProtocol(protocolbase.TProtocol):
     tcpNoDelay = True
 
     @gen.engine
@@ -40,7 +40,7 @@ class LoginProtocol(protocolbase.TibiaProtocol):
                     # Silly status protocol. No multi world support...
                     reqInfo = packet.uint16()
 
-                    pkg = TibiaPacket()
+                    pkg = TPacket()
 
                     if reqInfo & 0x01: # REQUEST_BASIC_SERVER_INFO
                         pkg.uint8(0x10)
@@ -141,7 +141,7 @@ class LoginProtocol(protocolbase.TibiaProtocol):
             return
 
         # Initialize the packet to send
-        pkg = TibiaPacket()
+        pkg = TPacket()
 
         if username:
             # Our funny way of doing async SQL
@@ -212,14 +212,14 @@ class LoginProtocol(protocolbase.TibiaProtocol):
         pkg.send(self) # Send
 
     def exitWithError(self, message, error = 0x0A):
-        packet = TibiaPacket()
+        packet = TPacket()
         packet.uint8(error) # Error code
         packet.string(message) # Error message
         packet.send(self)
         self.loseConnection()
 
 
-class LoginFactory(protocolbase.TibiaFactory):
+class LoginFactory(protocolbase.TFactory):
     __slots__ = ()
     protocol = LoginProtocol
 

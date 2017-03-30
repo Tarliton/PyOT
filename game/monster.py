@@ -1,6 +1,6 @@
 from .creature import Creature, uniqueId, allCreatures
 from . import map, scriptsystem
-from .packet import TibiaPacket
+from .packet import TPacket
 import copy, random, time
 import game.const
 from . import errors

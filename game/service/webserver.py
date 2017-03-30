@@ -1,7 +1,7 @@
 import tornado.web
 import builtins
 import config
-from packet import TibiaPacket, TibiaPacketReader
+from packet import TPacket, TibiaPacketReader
 from tornado.websocket import WebSocketHandler
 from tornado import gen
 import socket 
@@ -59,7 +59,7 @@ except:
                     return
 
                 # Initialize the packet to send
-                pkg = TibiaPacket()
+                pkg = TPacket()
 
                 if username:
                     # Our funny way of doing async SQL
@@ -235,7 +235,7 @@ except:
                 game.scriptsystem.get("login").run(creature=self.player)
                 
             def exitWithError(self, message, error = 0x14):
-                packet = TibiaPacket()
+                packet = TPacket()
                 packet.uint8(error) # Error code
                 packet.string(message) # Error message
                 packet.send(self)

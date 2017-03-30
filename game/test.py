@@ -28,7 +28,7 @@ for i in reactor.getDelayedCalls():
 class Packet(unittest.TestCase):
     def test_uint8(self):
         from . import packet
-        p = packet.TibiaPacket()
+        p = packet.TPacket()
         p.uint8(255)
         p.uint8(0)
 

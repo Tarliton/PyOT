@@ -1,5 +1,5 @@
 # This is the "common protocol" in which all other sub protocols is based upon
-from packet import TibiaPacket
+from packet import TPacket
 import game.const
 import game.map
 import math
@@ -17,7 +17,7 @@ import traceback
 ############# BASE PACKET ############
 ######################################
 
-class BasePacket(TibiaPacket):
+class BasePacket(TPacket):
     maxKnownCreatures = 1300
     maxOutfits = 29
     maxMounts = 25
@@ -596,12 +596,9 @@ class BaseProtocol(object):
             try:
                  OPHANDLERS[packetType](self, player, packet)
             except:
-                if IS_IN_TEST:
-                    raise
-                else:
-                    print("\n\n[UNHANDLED CORE EXCEPTION!]")
-                    traceback.print_exc()
-                    print("==============================\n")
+                print("\n\n[UNHANDLED CORE EXCEPTION!]")
+                traceback.print_exc()
+                print("==============================\n")
         #else:
             #print(("Unhandled packet (type = {0}, length: {1}, content = {2})".format(hex(packetType), len(packet.data), ' '.join( map(str, list(map(hex, list(map(ord, packet.getData())))))) )))
             #self.transport.loseConnection()

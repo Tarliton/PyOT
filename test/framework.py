@@ -58,7 +58,7 @@ class Client:
         from struct import pack
         from zlib import adler32
         
-        packet = p.TibiaPacket()
+        packet = p.TPacket()
         i = 0
         for c in format:
             if c == "b":
