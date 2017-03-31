@@ -79,3 +79,5 @@ ENV/
 .ropeproject
 
 config.py
+
+.idea/

@@ -18,7 +18,7 @@ LIGHTLEVEL_WORLD = 255
 LIGHTCOLOR_NONE = 0
 
 #: Default, orange light.
-LIGHTCOLOR_DEFAULT = 206 # Orange
+LIGHTCOLOR_DEFAULT = 206  # Orange
 
 #: White light.
 LIGHTCOLOR_WHITE = 215
@@ -37,7 +37,7 @@ SLOT_ARMOR = 3
 #: Inventory slot for the right hand.
 SLOT_LEFT = 4
 #: Inventory slot for the left hand.
-SLOT_RIGHT = 5 
+SLOT_RIGHT = 5
 #: Inventory slot for legs.
 SLOT_LEGS = 6
 #: Inventory slot for feets.
@@ -46,13 +46,13 @@ SLOT_FEET = 7
 SLOT_RING = 8
 #: Inventory slot for the ammonition.
 SLOT_AMMO = 9
-#what is 10? are 10-12 correct?
+# what is 10? are 10-12 correct?
 SLOT_PURSE = 10
 
 SLOT_LAST = SLOT_PURSE
 
 SLOT_CLIENT_FIRST = 1
-SLOT_CLIENT_SLOTS = 10 # We don't send purse
+SLOT_CLIENT_SLOTS = 10  # We don't send purse
 
 # Skills
 SKILL_FIRST = 0
@@ -70,7 +70,7 @@ SKILL_DISTANCE = 4
 SKILL_SHIELD = 5
 #: Skill ID for fishing.
 SKILL_FISH = 6
-SKILL_ROD = 6 # Hu? TFS hack.
+SKILL_ROD = 6  # Hu? TFS hack.
 SKILL_LAST = SKILL_FISH
 
 #: For skill callback
@@ -78,162 +78,161 @@ MAGIC_LEVEL = 7
 
 # Chat
 # BASE PROTOCOL ENUMS:
-_MSG_NONE                       = 0x00
-_MSG_SPEAK_SAY                  = 0x01
-_MSG_SPEAK_WHISPER              = 0x02
-_MSG_SPEAK_YELL                 = 0x03
-_MSG_PRIVATE_FROM               = 0x04
-_MSG_PRIVATE_TO                 = 0x05
-_MSG_CHANNEL_MANAGEMENT         = 0x06
-_MSG_CHANNEL                    = 0x07
-_MSG_CHANNEL_HIGHLIGHT          = 0x08
-_MSG_SPEAK_SPELL                = 0x09
-_MSG_NPC_FROM                   = 0x0A
-_MSG_NPC_TO                     = 0x0B
-_MSG_GAMEMASTER_BROADCAST       = 0x0C
-_MSG_GAMEMASTER_CHANNEL         = 0x0D
-_MSG_GAMEMASTER_PRIVATE_FROM    = 0x0E
-_MSG_GAMEMASTER_PRIVATE_TO      = 0x0F
-_MSG_SPEAK_MONSTER_SAY          = 0x22
-_MSG_SPEAK_MONSTER_YELL         = 0x23
-_MSG_STATUS_CONSOLE_RED         = 0x0C # Red message in the console
-_MSG_STATUS_DEFAULT             = 0x10 # White message at the bottom of the game window and in the console
-_MSG_STATUS_WARNING             = 0x11 # Red message in game window and in the console
-_MSG_EVENT_ADVANCE              = 0x12 # White message in game window and in the console
-_MSG_STATUS_SMALL               = 0x13 # White message at the bottom of the game window"
-_MSG_INFO_DESCR                 = 0x14 # Green message in game window and in the console
-_MSG_DAMAGE_DEALT               = 0x15
-_MSG_DAMAGE_RECEIVED            = 0x16
-_MSG_HEALED                     = 0x17
-_MSG_EXPERIENCE                 = 0x18
-_MSG_DAMAGE_OTHERS              = 0x19
-_MSG_HEALED_OTHERS              = 0x1A
-_MSG_EXPERIENCE_OTHERS          = 0x1B
-_MSG_EVENT_DEFAULT              = 0x1C # White message at the bottom of the game window and in the console
-_MSG_LOOT                       = 0x1D
-_MSG_TRADE_NPC                  = 0x1E
-_MSG_CHANNEL_GUILD              = 0x1F # SPEAK_CHANNEL_W(?) guild messages.
-_MSG_PARTY_MANAGEMENT           = 0x20
-_MSG_PARTY                      = 0x21
-_MSG_EVENT_ORANGE               = 0x22 # Orange message in the console
-_MSG_STATUS_CONSOLE_ORANGE      = 0x23 # Orange message in the console
-_MSG_REPORT                     = 0x24
-_MSG_HOTKEY_USE                 = 0x25
-_MSG_TUTORIAL_HINT              = 0x26
-_MSG_STATUS_CONSOLE_BLUE        = 0xFF
+_MSG_NONE = 0x00
+_MSG_SPEAK_SAY = 0x01
+_MSG_SPEAK_WHISPER = 0x02
+_MSG_SPEAK_YELL = 0x03
+_MSG_PRIVATE_FROM = 0x04
+_MSG_PRIVATE_TO = 0x05
+_MSG_CHANNEL_MANAGEMENT = 0x06
+_MSG_CHANNEL = 0x07
+_MSG_CHANNEL_HIGHLIGHT = 0x08
+_MSG_SPEAK_SPELL = 0x09
+_MSG_NPC_FROM = 0x0A
+_MSG_NPC_TO = 0x0B
+_MSG_GAMEMASTER_BROADCAST = 0x0C
+_MSG_GAMEMASTER_CHANNEL = 0x0D
+_MSG_GAMEMASTER_PRIVATE_FROM = 0x0E
+_MSG_GAMEMASTER_PRIVATE_TO = 0x0F
+_MSG_SPEAK_MONSTER_SAY = 0x22
+_MSG_SPEAK_MONSTER_YELL = 0x23
+_MSG_STATUS_CONSOLE_RED = 0x0C  # Red message in the console
+_MSG_STATUS_DEFAULT = 0x10  # White message at the bottom of the game window and in the console
+_MSG_STATUS_WARNING = 0x11  # Red message in game window and in the console
+_MSG_EVENT_ADVANCE = 0x12  # White message in game window and in the console
+_MSG_STATUS_SMALL = 0x13  # White message at the bottom of the game window"
+_MSG_INFO_DESCR = 0x14  # Green message in game window and in the console
+_MSG_DAMAGE_DEALT = 0x15
+_MSG_DAMAGE_RECEIVED = 0x16
+_MSG_HEALED = 0x17
+_MSG_EXPERIENCE = 0x18
+_MSG_DAMAGE_OTHERS = 0x19
+_MSG_HEALED_OTHERS = 0x1A
+_MSG_EXPERIENCE_OTHERS = 0x1B
+_MSG_EVENT_DEFAULT = 0x1C  # White message at the bottom of the game window and in the console
+_MSG_LOOT = 0x1D
+_MSG_TRADE_NPC = 0x1E
+_MSG_CHANNEL_GUILD = 0x1F  # SPEAK_CHANNEL_W(?) guild messages.
+_MSG_PARTY_MANAGEMENT = 0x20
+_MSG_PARTY = 0x21
+_MSG_EVENT_ORANGE = 0x22  # Orange message in the console
+_MSG_STATUS_CONSOLE_ORANGE = 0x23  # Orange message in the console
+_MSG_REPORT = 0x24
+_MSG_HOTKEY_USE = 0x25
+_MSG_TUTORIAL_HINT = 0x26
+_MSG_STATUS_CONSOLE_BLUE = 0xFF
 
 # SCRIPT ALIAS ENUMS
-MSG_NONE                       = '_MSG_NONE'
-MSG_SPEAK_SAY                  = '_MSG_SPEAK_SAY'
-MSG_SPEAK_WHISPER              = '_MSG_SPEAK_WHISPER'
-MSG_SPEAK_YELL                 = '_MSG_SPEAK_YELL'
-MSG_PRIVATE_FROM               = '_MSG_PRIVATE_FROM'
-MSG_PRIVATE_TO                 = '_MSG_PRIVATE_TO'
-MSG_CHANNEL_MANAGEMENT         = '_MSG_CHANNEL_MANAGEMENT'
-MSG_CHANNEL                    = '_MSG_CHANNEL'
-MSG_CHANNEL_HIGHLIGHT          = '_MSG_CHANNEL_HIGHLIGHT'
-MSG_SPEAK_SPELL                = '_MSG_SPEAK_SPELL'
-MSG_NPC_FROM                   = '_MSG_NPC_FROM'
-MSG_NPC_TO                     = '_MSG_NPC_TO'
-MSG_GAMEMASTER_BROADCAST       = '_MSG_GAMEMASTER_BROADCAST'
-MSG_GAMEMASTER_CHANNEL         = '_MSG_GAMEMASTER_CHANNEL'
-MSG_GAMEMASTER_PRIVATE_FROM    = '_MSG_GAMEMASTER_PRIVATE_FROM'
-MSG_GAMEMASTER_PRIVATE_TO      = '_MSG_GAMEMASTER_PRIVATE_TO'
-MSG_SPEAK_MONSTER_SAY          = '_MSG_SPEAK_MONSTER_SAY'
-MSG_SPEAK_MONSTER_YELL         = '_MSG_SPEAK_MONSTER_YELL'
-MSG_STATUS_CONSOLE_RED         = '_MSG_STATUS_CONSOLE_RED'
-MSG_STATUS_DEFAULT             = '_MSG_STATUS_DEFAULT '
-MSG_STATUS_WARNING             = '_MSG_STATUS_WARNING'
-MSG_EVENT_ADVANCE              = '_MSG_EVENT_ADVANCE'
-MSG_STATUS_SMALL               = '_MSG_STATUS_SMALL'
-MSG_INFO_DESCR                 = '_MSG_INFO_DESCR'
-MSG_DAMAGE_DEALT               = '_MSG_DAMAGE_DEALT'
-MSG_DAMAGE_RECEIVED            = '_MSG_DAMAGE_RECEIVED'
-MSG_HEALED                     = '_MSG_HEALED'
-MSG_EXPERIENCE                 = '_MSG_EXPERIENCE'
-MSG_DAMAGE_OTHERS              = '_MSG_DAMAGE_OTHERS'
-MSG_HEALED_OTHERS              = '_MSG_HEALED_OTHERS'
-MSG_EXPERIENCE_OTHERS          = '_MSG_EXPERIENCE_OTHERS'
-MSG_EVENT_DEFAULT              = '_MSG_EVENT_DEFAULT'
-MSG_LOOT                       = '_MSG_LOOT'
-MSG_TRADE_NPC                  = '_MSG_TRADE_NPC'
-MSG_CHANNEL_GUILD              = '_MSG_CHANNEL_GUILD'
-MSG_PARTY_MANAGEMENT           = '_MSG_PARTY_MANAGEMENT'
-MSG_PARTY                      = '_MSG_PARTY'
-MSG_EVENT_ORANGE               = '_MSG_EVENT_ORANGE'
-MSG_STATUS_CONSOLE_ORANGE      = '_MSG_STATUS_CONSOLE_ORANGE'
-MSG_REPORT                     = '_MSG_REPORT'
-MSG_HOTKEY_USE                 = '_MSG_HOTKEY_USE'
-MSG_TUTORIAL_HINT              = '_MSG_TUTORIAL_HINT'
-MSG_STATUS_CONSOLE_BLUE        = '_MSG_STATUS_CONSOLE_BLUE'
+MSG_NONE = '_MSG_NONE'
+MSG_SPEAK_SAY = '_MSG_SPEAK_SAY'
+MSG_SPEAK_WHISPER = '_MSG_SPEAK_WHISPER'
+MSG_SPEAK_YELL = '_MSG_SPEAK_YELL'
+MSG_PRIVATE_FROM = '_MSG_PRIVATE_FROM'
+MSG_PRIVATE_TO = '_MSG_PRIVATE_TO'
+MSG_CHANNEL_MANAGEMENT = '_MSG_CHANNEL_MANAGEMENT'
+MSG_CHANNEL = '_MSG_CHANNEL'
+MSG_CHANNEL_HIGHLIGHT = '_MSG_CHANNEL_HIGHLIGHT'
+MSG_SPEAK_SPELL = '_MSG_SPEAK_SPELL'
+MSG_NPC_FROM = '_MSG_NPC_FROM'
+MSG_NPC_TO = '_MSG_NPC_TO'
+MSG_GAMEMASTER_BROADCAST = '_MSG_GAMEMASTER_BROADCAST'
+MSG_GAMEMASTER_CHANNEL = '_MSG_GAMEMASTER_CHANNEL'
+MSG_GAMEMASTER_PRIVATE_FROM = '_MSG_GAMEMASTER_PRIVATE_FROM'
+MSG_GAMEMASTER_PRIVATE_TO = '_MSG_GAMEMASTER_PRIVATE_TO'
+MSG_SPEAK_MONSTER_SAY = '_MSG_SPEAK_MONSTER_SAY'
+MSG_SPEAK_MONSTER_YELL = '_MSG_SPEAK_MONSTER_YELL'
+MSG_STATUS_CONSOLE_RED = '_MSG_STATUS_CONSOLE_RED'
+MSG_STATUS_DEFAULT = '_MSG_STATUS_DEFAULT '
+MSG_STATUS_WARNING = '_MSG_STATUS_WARNING'
+MSG_EVENT_ADVANCE = '_MSG_EVENT_ADVANCE'
+MSG_STATUS_SMALL = '_MSG_STATUS_SMALL'
+MSG_INFO_DESCR = '_MSG_INFO_DESCR'
+MSG_DAMAGE_DEALT = '_MSG_DAMAGE_DEALT'
+MSG_DAMAGE_RECEIVED = '_MSG_DAMAGE_RECEIVED'
+MSG_HEALED = '_MSG_HEALED'
+MSG_EXPERIENCE = '_MSG_EXPERIENCE'
+MSG_DAMAGE_OTHERS = '_MSG_DAMAGE_OTHERS'
+MSG_HEALED_OTHERS = '_MSG_HEALED_OTHERS'
+MSG_EXPERIENCE_OTHERS = '_MSG_EXPERIENCE_OTHERS'
+MSG_EVENT_DEFAULT = '_MSG_EVENT_DEFAULT'
+MSG_LOOT = '_MSG_LOOT'
+MSG_TRADE_NPC = '_MSG_TRADE_NPC'
+MSG_CHANNEL_GUILD = '_MSG_CHANNEL_GUILD'
+MSG_PARTY_MANAGEMENT = '_MSG_PARTY_MANAGEMENT'
+MSG_PARTY = '_MSG_PARTY'
+MSG_EVENT_ORANGE = '_MSG_EVENT_ORANGE'
+MSG_STATUS_CONSOLE_ORANGE = '_MSG_STATUS_CONSOLE_ORANGE'
+MSG_REPORT = '_MSG_REPORT'
+MSG_HOTKEY_USE = '_MSG_HOTKEY_USE'
+MSG_TUTORIAL_HINT = '_MSG_TUTORIAL_HINT'
+MSG_STATUS_CONSOLE_BLUE = '_MSG_STATUS_CONSOLE_BLUE'
 
 # Colors
-COLOR_BLACK                     = 0
-COLOR_BLUE                      = 5
-COLOR_GREEN                     = 18
-COLOR_LIGHTGREEN                = 66
-COLOR_DARKBROWN                 = 78
-COLOR_LIGHTBLUE                 = 89
-COLOR_MAYABLUE                  = 95
-COLOR_DARKRED                   = 108
-COLOR_DARKPURPLE                = 112
-COLOR_BROWN                     = 120
-COLOR_GREY                      = 129
-COLOR_TEAL                      = 143
-COLOR_DARKPINK                  = 152
-COLOR_PURPLE                    = 154
-COLOR_DARKORANGE                = 156
-COLOR_RED                       = 180
-COLOR_PINK                      = 190
-COLOR_ORANGE                    = 192
-COLOR_DARKYELLOW                = 205
-COLOR_YELLOW                    = 210
-COLOR_WHITE                     = 215
+COLOR_BLACK = 0
+COLOR_BLUE = 5
+COLOR_GREEN = 18
+COLOR_LIGHTGREEN = 66
+COLOR_DARKBROWN = 78
+COLOR_LIGHTBLUE = 89
+COLOR_MAYABLUE = 95
+COLOR_DARKRED = 108
+COLOR_DARKPURPLE = 112
+COLOR_BROWN = 120
+COLOR_GREY = 129
+COLOR_TEAL = 143
+COLOR_DARKPINK = 152
+COLOR_PURPLE = 154
+COLOR_DARKORANGE = 156
+COLOR_RED = 180
+COLOR_PINK = 190
+COLOR_ORANGE = 192
+COLOR_DARKYELLOW = 205
+COLOR_YELLOW = 210
+COLOR_WHITE = 215
 
 # Fluids
-FLUID_EMPTY                     = 0x00
-FLUID_BLUE                      = 0x01
-FLUID_PURPLE                    = 0x02
-FLUID_BROWN                     = 0x03
-FLUID_RED                       = 0x05
-FLUID_GREEN                     = 0x06
-FLUID_YELLOW                    = 0x08
-FLUID_WHITE                     = 0x09
+FLUID_EMPTY = 0x00
+FLUID_BLUE = 0x01
+FLUID_PURPLE = 0x02
+FLUID_BROWN = 0x03
+FLUID_RED = 0x05
+FLUID_GREEN = 0x06
+FLUID_YELLOW = 0x08
+FLUID_WHITE = 0x09
 
-FLUID_NONE                      = FLUID_EMPTY
-FLUID_WATER                     = FLUID_BLUE
-FLUID_BLOOD                     = FLUID_RED
-FLUID_BEER                      = FLUID_BROWN
-FLUID_SLIME                     = FLUID_GREEN
-FLUID_LEMONADE                  = FLUID_YELLOW
-FLUID_MILK                      = FLUID_WHITE
-FLUID_MANA                      = FLUID_PURPLE
+FLUID_NONE = FLUID_EMPTY
+FLUID_WATER = FLUID_BLUE
+FLUID_BLOOD = FLUID_RED
+FLUID_BEER = FLUID_BROWN
+FLUID_SLIME = FLUID_GREEN
+FLUID_LEMONADE = FLUID_YELLOW
+FLUID_MILK = FLUID_WHITE
+FLUID_MANA = FLUID_PURPLE
 
-FLUID_LIFE                      = FLUID_RED + 8
-FLUID_OIL                       = FLUID_BROWN + 8
-FLUID_URINE                     = FLUID_YELLOW + 8
-FLUID_COCONUTMILK               = FLUID_WHITE + 8
-FLUID_WINE                      = FLUID_PURPLE + 8
+FLUID_LIFE = FLUID_RED + 8
+FLUID_OIL = FLUID_BROWN + 8
+FLUID_URINE = FLUID_YELLOW + 8
+FLUID_COCONUTMILK = FLUID_WHITE + 8
+FLUID_WINE = FLUID_PURPLE + 8
 
-FLUID_MUD                       = FLUID_BROWN + 16
-FLUID_FRUITJUICE                = FLUID_YELLOW + 16
+FLUID_MUD = FLUID_BROWN + 16
+FLUID_FRUITJUICE = FLUID_YELLOW + 16
 
-FLUID_LAVA                      = FLUID_RED + 24
-FLUID_RUM                       = FLUID_BROWN + 24
-FLUID_SWAMP                     = FLUID_GREEN + 24
+FLUID_LAVA = FLUID_RED + 24
+FLUID_RUM = FLUID_BROWN + 24
+FLUID_SWAMP = FLUID_GREEN + 24
 
-FLUID_TEA                       = FLUID_BROWN + 32
-FLUID_MEAD                      = FLUID_BROWN + 40
+FLUID_TEA = FLUID_BROWN + 32
+FLUID_MEAD = FLUID_BROWN + 40
 
 # Compatibility stuff
-FLUID_ENERGY                    = FLUID_NONE
-FLUID_UNDEAD                    = FLUID_NONE
-FLUID_FIRE                      = FLUID_NONE
+FLUID_ENERGY = FLUID_NONE
+FLUID_UNDEAD = FLUID_NONE
+FLUID_FIRE = FLUID_NONE
 
 # Floorchange
-FLOORCHANGE_DOWN                = 0x00
-FLOORCHANGE_UP                  = 0x01
-
+FLOORCHANGE_DOWN = 0x00
+FLOORCHANGE_UP = 0x01
 
 # Directions
 NORTH = 0
@@ -252,7 +251,7 @@ FULLSPLASH = 2016
 FULLSPLASHES = (2016, 2017, 2018)
 
 # Damage types
-PHYSICAL = 0 #damage from physical spells, is reduce by physical percent only
+PHYSICAL = 0  # damage from physical spells, is reduce by physical percent only
 FIRE = 1
 EARTH = 2
 ENERGY = 3
@@ -260,13 +259,13 @@ ICE = 4
 HOLY = 5
 DEATH = 6
 DROWN = 7
-MELEE = 8 #damage from a melee and distance weapoans?, is reduce by physical percent + armor/shielding
+MELEE = 8  # damage from a melee and distance weapoans?, is reduce by physical percent + armor/shielding
 DISTANCE = 9
 LIFEDRAIN = 10
 MANADRAIN = 11
 
 # Monster attack types
-#MELEE = 0
+# MELEE = 0
 TARGET_SPELL = 1
 SELF_SPELL = 2
 
@@ -406,15 +405,15 @@ ANIMATION_ENVENOMEDARROW = 51
 ANIMATION_NONE = 0
 
 # Item types
-ITEM_TYPE_NONE        = 0
-ITEM_TYPE_DEPOT       = 1
-ITEM_TYPE_MAILBOX     = 2
+ITEM_TYPE_NONE = 0
+ITEM_TYPE_DEPOT = 1
+ITEM_TYPE_MAILBOX = 2
 ITEM_TYPE_TRASHHOLDER = 3
-ITEM_TYPE_CONTAINER   = 4
-ITEM_TYPE_DOOR        = 5
-ITEM_TYPE_MAGICFIELD  = 6
-ITEM_TYPE_TELEPORT    = 7
-ITEM_TYPE_BED         = 8
+ITEM_TYPE_CONTAINER = 4
+ITEM_TYPE_DOOR = 5
+ITEM_TYPE_MAGICFIELD = 6
+ITEM_TYPE_TELEPORT = 7
+ITEM_TYPE_BED = 8
 
 # Modes
 OFFENSIVE = 1
@@ -437,11 +436,11 @@ TARGETSTRATEGY_HIGHEST = 3
 MONEY_MAP = ((2160, 10000), (2152, 100), (2148, 1))
 
 # Mailstuff
-ITEM_PARCEL           = 2595
-ITEM_PARCEL_STAMPED   = 2596
-ITEM_LETTER           = 2597
-ITEM_LETTER_STAMPED   = 2598
-ITEM_LABEL            = 2599
+ITEM_PARCEL = 2595
+ITEM_PARCEL_STAMPED = 2596
+ITEM_LETTER = 2597
+ITEM_LETTER_STAMPED = 2598
+ITEM_LABEL = 2599
 
 # Shields
 SHIELD_NONE = 0
@@ -520,8 +519,7 @@ CONDITION_ADD = 2
 CONDITION_MODIFY = 3
 CONDITION_REPLACE = 4
 
-
-#spell information
+# spell information
 TARGET_AREA = 0
 TARGET_SELF = 1
 TARGET_TARGET = 2
@@ -533,125 +531,125 @@ HEALING_GROUP = 2
 SUPPORT_GROUP = 3
 SPECIAL_GROUP = 4
 
-AREA_ONE = (0,0),
+AREA_ONE = (0, 0),
 
-#strike
+# strike
 AREA_WAVE1 = TARGET_DIRECTION, (0,)
 
 AREA_WAVE2 = TARGET_DIRECTION, (0,), \
-(-1, 0, 1)
+             (-1, 0, 1)
 
 AREA_WAVE4 = TARGET_DIRECTION, (0,), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-2, -1, 0, 1, 2)
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-2, -1, 0, 1, 2)
 
 AREA_WAVE42 = TARGET_DIRECTION, (0,), \
-(0,), \
-(-1, 0, 1), \
-(-1, 0, 1)
+              (0,), \
+              (-1, 0, 1), \
+              (-1, 0, 1)
 
 AREA_WAVE5 = TARGET_DIRECTION, (0,), \
-(0,), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-1, 0, 1)
+             (0,), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-1, 0, 1)
 
 AREA_WAVE6 = TARGET_DIRECTION, (0,), \
-(0,), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-2, -1, 0, 1, 2)
+             (0,), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-2, -1, 0, 1, 2)
 
 AREA_WAVE7 = TARGET_DIRECTION, (0,), \
-(0,), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-2, -1, 0, 1, 2), \
-(-2, -1, 0, 1, 2)
+             (0,), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-2, -1, 0, 1, 2), \
+             (-2, -1, 0, 1, 2)
 
 AREA_WAVE72 = TARGET_DIRECTION, (0,), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-2, -1, 0, 1, 2), \
-(-2, -1, 0, 1, 2), \
-(-3, -2, -1, 0, 1, 2, 3), \
-(-3, -2, -1, 0, 1, 2, 3) 
-#(-3, -2, -1, 0, 1, 2, 3)  does it go this far?
+              (-1, 0, 1), \
+              (-1, 0, 1), \
+              (-2, -1, 0, 1, 2), \
+              (-2, -1, 0, 1, 2), \
+              (-3, -2, -1, 0, 1, 2, 3), \
+              (-3, -2, -1, 0, 1, 2, 3)
+# (-3, -2, -1, 0, 1, 2, 3)  does it go this far?
 
 AREA_WAVE8 = TARGET_DIRECTION, (0,), \
-(0,), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-1, 0, 1), \
-(-2, -1, 0, 1, 2), \
-(-2, -1, 0, 1, 2), \
-(-2, -1, 0, 1, 2)
+             (0,), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-1, 0, 1), \
+             (-2, -1, 0, 1, 2), \
+             (-2, -1, 0, 1, 2), \
+             (-2, -1, 0, 1, 2)
 
-AREA_BEAM4 = TARGET_DIRECTION,(0,), (0,), (0,), (0,)
+AREA_BEAM4 = TARGET_DIRECTION, (0,), (0,), (0,), (0,)
 
-AREA_BEAM7 = TARGET_DIRECTION,(0,), (0,), (0,), (0,), (0,), (0,), (0,)
+AREA_BEAM7 = TARGET_DIRECTION, (0,), (0,), (0,), (0,), (0,), (0,), (0,)
 
 AREA_CIRCLE = TARGET_CASTER_AREA, (-1, 1), (0, -1), (0, 1)
 
 AREA_CIRCLE2 = TARGET_CASTER_AREA, (-1, -2), (0, -2), (1, -2), \
-(-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), \
-(-2, 0), (-1, 0), (1, 0), (2, 0), \
-(-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), \
-(-1, 2), (0, 2), (1, 2)
+               (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), \
+               (-2, 0), (-1, 0), (1, 0), (2, 0), \
+               (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), \
+               (-1, 2), (0, 2), (1, 2)
 
 AREA_CIRCLE3 = TARGET_CASTER_AREA, (-1, -3), (0, -3), (1, -3), \
-(-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2), \
-(-3, -1), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), (3, -1), \
-(-3, 0), (-2, 0), (-1, 0), (1, 0), (2, 0), (3,0), \
-(-3, 1), (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), (3, 1), \
-(-3, 2), (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2), \
-(-1, 3), (0, 3), (1, 3)
+               (-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2), \
+               (-3, -1), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), (3, -1), \
+               (-3, 0), (-2, 0), (-1, 0), (1, 0), (2, 0), (3, 0), \
+               (-3, 1), (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), (3, 1), \
+               (-3, 2), (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2), \
+               (-1, 3), (0, 3), (1, 3)
 
 AREA_CROSS = TARGET_CASTER_AREA, (0, -1), \
-(-1, 0), (1, 0), \
-(0, 1)
+             (-1, 0), (1, 0), \
+             (0, 1)
 
 AREA_SQUARE = TARGET_CASTER_AREA, (-1, -1), (0, -1), (1, -1), \
-(-1, 0), (1, 0), \
-(-1, 1), (0, 1), (1, 1)
+              (-1, 0), (1, 0), \
+              (-1, 1), (0, 1), (1, 1)
 
 AREA_WALL = TARGET_DIRECTION, (-2, -1, 1, 2)
 
-#may be incorrect
+# may be incorrect
 AREA_DIAGONALWALL = TARGET_DIRECTION, (-2, -1), \
-(-1,), \
-(-1, 0, 1), \
-(1,), \
-(1, 2)
+                    (-1,), \
+                    (-1, 0, 1), \
+                    (1,), \
+                    (1, 2)
 
 AREA_UE5X5 = TARGET_CASTER_AREA, (0, -5), \
-(-2, -4), (-1, -4), (0, -4), (1, -4), (2, -4), \
-(-3, -3), (-2, -3), (-1, -3), (0, -3), (1, -3), (2, -3), (3, -3), \
-(-4, -2), (-3, -2), (-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2), (3, -2), (4, -2), \
-(-4, -1), (-3, -1), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), (3, -1), (4, -1), \
-(-5, 0), (-4, 0), (-3, 0), (-2, 0), (-1, 0), (1, 0), (2, 0), (3,0), (4, 0), (5, 0), \
-(-4, 1), (-3, 1), (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), \
-(-4, 2), (-3, 2), (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2), (3, 2), (4, 2), \
-(-3, 3), (-2, 3), (-1, 3), (0, 3), (1, 3), (2, 3), (3, 3), \
-(-2, 4), (-1, 4), (0, 4), (1, 4), (2, 4), \
-(0, 5)
+             (-2, -4), (-1, -4), (0, -4), (1, -4), (2, -4), \
+             (-3, -3), (-2, -3), (-1, -3), (0, -3), (1, -3), (2, -3), (3, -3), \
+             (-4, -2), (-3, -2), (-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2), (3, -2), (4, -2), \
+             (-4, -1), (-3, -1), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), (3, -1), (4, -1), \
+             (-5, 0), (-4, 0), (-3, 0), (-2, 0), (-1, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), \
+             (-4, 1), (-3, 1), (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), \
+             (-4, 2), (-3, 2), (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2), (3, 2), (4, 2), \
+             (-3, 3), (-2, 3), (-1, 3), (0, 3), (1, 3), (2, 3), (3, 3), \
+             (-2, 4), (-1, 4), (0, 4), (1, 4), (2, 4), \
+             (0, 5)
 
 AREA_UE6X6 = TARGET_CASTER_AREA, (0, -6), \
-(-1, -5), (0, -5), (1, -5), \
-(-2, -4), (-1, -4), (0, -4), (1, -4), (2, -4), \
-(-3, -3), (-2, -3), (-1, -3), (0, -3), (1, -3), (2, -3), (3, -3), \
-(-4, -2), (-3, -2), (-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2), (3, -2), (4, -2), \
-(-5, -1), (-4, -1), (-3, -1), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), (3, -1), (4, -1), (5, -1), \
-(-6, 0), (-5, 0), (-4, 0), (-3, 0), (-2, 0), (-1, 0), (1, 0), (2, 0), (3,0), (4, 0), (5, 0), (6, 0), \
-(-5, 1), (-4, 1), (-3, 1), (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), \
-(-4, 2), (-3, 2), (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2), (3, 2), (4, 2), \
-(-3, 3), (-2, 3), (-1, 3), (0, 3), (1, 3), (2, 3), (3, 3), \
-(-2, 4), (-1, 4), (0, 4), (1, 4), (2, 4), \
-(-1, 5), (0, 5), (1, 5), \
-(0, 6)
+             (-1, -5), (0, -5), (1, -5), \
+             (-2, -4), (-1, -4), (0, -4), (1, -4), (2, -4), \
+             (-3, -3), (-2, -3), (-1, -3), (0, -3), (1, -3), (2, -3), (3, -3), \
+             (-4, -2), (-3, -2), (-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2), (3, -2), (4, -2), \
+             (-5, -1), (-4, -1), (-3, -1), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1), (3, -1), (4, -1), (5, -1), \
+             (-6, 0), (-5, 0), (-4, 0), (-3, 0), (-2, 0), (-1, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), \
+             (-5, 1), (-4, 1), (-3, 1), (-2, 1), (-1, 1), (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), \
+             (-4, 2), (-3, 2), (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2), (3, 2), (4, 2), \
+             (-3, 3), (-2, 3), (-1, 3), (0, 3), (1, 3), (2, 3), (3, 3), \
+             (-2, 4), (-1, 4), (0, 4), (1, 4), (2, 4), \
+             (-1, 5), (0, 5), (1, 5), \
+             (0, 6)
 
 # Same as otserv use i suppose. Optimize them?
 TILEFLAGS_NONE = 0
@@ -679,7 +677,7 @@ GUILD_MODERATE_HOUSE = 1 << 4
 GUILD_WITHDRAW_MONEY = 1 << 5
 GUILD_MANAGE_WARS = 1 << 6
 GUILD_INVITE = 1 << 7
-GUILD_PROMOTE = 1 << 8 # Upto own permissions except GUILD_PROMOTE unless LEADER.
+GUILD_PROMOTE = 1 << 8  # Upto own permissions except GUILD_PROMOTE unless LEADER.
 
 # Special channel ids.
 CHANNEL_OFFSET = 10

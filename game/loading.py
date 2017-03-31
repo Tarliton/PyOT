@@ -100,11 +100,6 @@ def loader(timer):
     builtins.config = config
     builtins.userconfig = userconfig
 
-    # Inflect support in scripts.
-    builtins.inflect = inflect.engine()
-    
-
-
     builtins.register = game.scriptsystem.register
     builtins.registerFirst = game.scriptsystem.registerFirst
     builtins.registerForAttr = game.scriptsystem.registerForAttr
@@ -284,15 +279,6 @@ def loader(timer):
             _charge(house)
         else:
             call_later((timer - house.paid) % config.chargeRentEvery, _charge, house)
-
-    # Loading languages
-    if config.enableTranslations:
-        print("> > Loading languages... ", end=' ')
-        if game.language.LANGUAGES:
-            print("%s\n" % _txtColor(list(game.language.LANGUAGES.keys()), "yellow"))
-        else:
-            print("%s\n" % _txtColor("No languages found, falling back to defaults!", "red"))
-
 
     # Load protocols
     print("> > Loading game protocols...", end=' ')

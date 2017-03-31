@@ -1,18 +1,17 @@
 import game.player
 import re
-try:
-    import pickle as pickle
-except:
-    import pickle
+import pickle
     
 houseData = {}
+
 def getHouseById(id):
     try:
         return houseData[id]
     except:
         return None
-        
-class House(object):
+
+
+class House:
     def __init__(self, id, owner, guild, paid, name, town, size, rent, data):
         self.id = id
         self.owner = owner
@@ -33,8 +32,6 @@ class House(object):
                 
         else:
             self.data = {"items":{}, "subowners": [], "guests": [], "doors":{}}
-
-        
 
     # Doors
     def getDoorAccess(self, doorId):
@@ -104,6 +101,7 @@ class House(object):
             self.data["guests"].remove(name)
         except:
             pass
+
     def isGuest(self, nameOrPlayer):
         # TODO: guild!
         
@@ -144,12 +142,14 @@ class House(object):
             self.data["subowners"].append(name)
         except:
             self.data["subowners"] = [name]
+
     def removeSubOwner(self, name):
         self.save = True
         try:
             self.data["subowners"].remove(name)
         except:
             pass
+
     def isSubOwner(self, nameOrPlayer):
         # TODO: guild!
         

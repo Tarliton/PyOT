@@ -17,7 +17,8 @@ globalScripts = {}
 class InvalidScriptFunctionArgument(Exception):
     pass
 
-class Scripts(object):
+
+class Scripts:
     def __init__(self, parameters = ()):
         self.scripts = []
         self.parameters = parameters
@@ -46,9 +47,10 @@ class Scripts(object):
                     return False
 
         return res
-                
-class TriggerScripts(object):
-    def __init__(self, parameters = ()):
+
+
+class TriggerScripts:
+    def __init__(self, parameters=()):
         self.scripts = {}
         self.parameters = parameters
         self.weaks = set()
@@ -423,14 +425,13 @@ def handle_script_exception():
     
     
     print("--------------------------")
-    
+
+
 def importer():
     handleModule("scripts")
     handleModule("spells")
     handleModule("monsters")
     handleModule("npcs")
-    if config.enableWebProtocol:
-        handleModule("web")
     handlePostLoadEntries()
 
 def scriptInitPaths(base, subdir=True):
@@ -630,8 +631,10 @@ def access(*groupFlags, **kwargs):
 # A special post-loading cache thingy.
 postLoadEntries = {}
 
+
 def registerForAttr(type, attr, callback):
     postLoadEntries.setdefault(attr, []).append((type, callback))
+
 
 def handlePostLoadEntries():
     _unpackPostLoad = list(postLoadEntries.items())
@@ -643,14 +646,3 @@ def handlePostLoadEntries():
 
 
     postLoadEntries.clear()
-
-if config.enableWebProtocol:
-    # To register web sites.
-    def registerWeb(url):
-        def _(cls):
-            try:
-                Web.add_handlers('.*$', ((url, cls),))
-            except:
-                print("Web not enabled!")
-            return cls
-        return _

@@ -1,7 +1,8 @@
 import copy
 import math
 
-class Condition(object):
+
+class Condition:
     def __init__(self, type, subtype="", length=1, every=2, check=None, *argc, **kwargs):
         self.length = length
         self.every = every

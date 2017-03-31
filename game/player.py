@@ -19,21 +19,15 @@ import datetime
 import game.language
 import copy
 from tornado import gen
+import pickle
 
 # Build class.
 from game.creature_talking import PlayerTalking
 from game.creature_attacks import PlayerAttacks
 
-try:
-    import pickle as pickle
-except:
-    import pickle
 
 allPlayers = {}
 allPlayersObject = allPlayers.values() # Quick speedup
-
-if config.enableExtensionProtocol:
-    from .service.extserver import IPS as MEDIA_IPS
 
 
 class Player(PlayerTalking, PlayerAttacks, Creature): # Creature last.
@@ -2693,16 +2687,6 @@ class Player(PlayerTalking, PlayerAttacks, Creature): # Creature last.
 
     def modifyBalance(self, modBalance):
         self.data["balance"] += modBalance
-
-    def media(self):
-        if not config.enableExtensionProtocol:
-            raise Exception("ExtensionPorotocol is not enabled")
-
-        ip = self.getIP()
-        if ip in MEDIA_IPS:
-            return MEDIA_IPS[ip]
-        else:
-            return None
 
     # Extended opcode
     def getOSType(self):

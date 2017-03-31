@@ -3,8 +3,9 @@ byKiller = {}
 byVictim = {}
 
 loadedDeathIds = set()
-        
-class DeathEntry(object):
+
+
+class DeathEntry:
     def __init__(self, killerId, victimId, unjustified, revenged=0, _time=None, war_id=0, deathId=0):
         if not _time:
             _time = time.time()
@@ -30,6 +31,7 @@ class DeathEntry(object):
     def saveQuery(self):
         " Make a save query (for saving). "
         return "(%s, %s, %s, %s, %s, %s)" % (self.killerId, self.victimId, self.unjustified, self.time, self.revenged, self.warId)
+
 
 @gen.coroutine
 def loadDeathList(playerId):
@@ -57,12 +59,15 @@ def loadDeathList(playerId):
             
         loadedDeathIds.add(entry[0])
 
+
 def findUnrevengeKill(killerId, victimId):
     " Returns unrevenged deathentries based on killer and victim. "
 
     for kill in byVictim[killerId]:
         if kill.unjustified and not kill.revenged:
             return kill
+
+
 def getSkull(playerId, targetId=None):
     " Returns the skull for playerId "
 
@@ -133,7 +138,8 @@ def _addEntryToDatabase(deathEntry):
     deathEntry.id = yield sql.runOperationLastId("INSERT INTO pvp_deaths(`killer_id`, `victim_id`, `unjust`, `time`, `revenged`, `war_id`) VALUES %s;" % deathEntry.saveQuery())
 
     loadedDeathIds.add(deathEntry.id)
-    
+
+
 def addEntry(deathEntry):
     " Adds a deathentry to the database and to the cache. "
     try:

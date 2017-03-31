@@ -10,22 +10,25 @@ def getGuildById(id):
         return guilds[id]
     except:
         return None
-        
+
+
 def getGuildByName(name):
     " Get guild based on guild name."
     try:
         return guild_names[name]
     except:
         return None
-        
+
+
 def guildExists(id):
     " Does a guild with this id exist. Basically a bool version of :func:`getGuildById` "
     if getGuildById(id) is not None:
         return True
     else:
         return False
-        
-class Guild(object):
+
+
+class Guild:
     def __init__(self, id, name, motd, balance):
         self.id = id
         self.name = name
@@ -69,7 +72,7 @@ class Guild(object):
         return self.ranks[rankId]
     
     
-class GuildRank(object):
+class GuildRank:
     def __init__(self, guild_id, rank_id, title, permissions):
         self.guild_id = guild_id
         self.rank_id = rank_id
@@ -95,7 +98,8 @@ class GuildRank(object):
     def guild(self):
         " Return the guild object for this rank. "
         return guilds[self.guild_id]
-        
+
+
 def make_guild(name, motd='', balance=0, _id=1):
     # TODO: SQL Query!
     guild = Guild(_id, name, motd, balance)
@@ -103,7 +107,8 @@ def make_guild(name, motd='', balance=0, _id=1):
     guild_names[name] = guild
     
     return guild
-    
+
+
 @gen.coroutine
 def load():
     " Initial load of the guilds. Shouldn't be used after loading. "

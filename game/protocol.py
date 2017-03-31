@@ -1,4 +1,6 @@
-import sys, os, glob, importlib
+import glob
+import importlib
+import os
 
 protocolsAvailable = []
 for path in glob.iglob('game/protocols/*.py'):
@@ -8,6 +10,7 @@ for path in glob.iglob('game/protocols/*.py'):
 
 protocolsUsed = {}
 
+
 def getProtocol(version):
     if not protocolsUsed:
         loadProtocol(version)
@@ -16,6 +19,7 @@ def getProtocol(version):
     except:
         print("Protocol %d unsupported" % version)
     return None
+
 
 def loadProtocol(version):
     if "_trial_temp" in os.getcwd():

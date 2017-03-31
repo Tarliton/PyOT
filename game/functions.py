@@ -35,12 +35,14 @@ pickleFields = 'objectStorage',
 groups = {}
 globalize = ["magicEffect", "summonCreature", "relocate", "transformItem", "placeItem", "calculateWalkPattern", "getCreatures", "getPlayers", "getSpectators", "placeInDepot", "townNameToId", "townIdToName", "getTibiaTime", "getLightLevel", "getPlayerIDByName", "positionInDirection", "updateTile", "saveAll", "teleportItem", "getPlayer", "townPosition", "broadcast", "loadPlayer", "loadPlayerById", "getHouseByPos", "moveItem", "mail", "hasSpectators", "hasZLevelSpectators", "fastPickler"]
 
+
 # Just a inner funny call
 def looper(function, time):
     """Looper decorator"""
 
     function()
     call_later(time, looper, function, time)
+
 
 def loopDecorator(time):
     """Loop function decorator.
@@ -60,6 +62,7 @@ def loopDecorator(time):
         _first.__doc__ = f.__doc__
         return _first
     return _decor
+
 
 # This one calculate the tiles on the way
 # Calculate walk patterns
@@ -109,7 +112,6 @@ def calculateWalkPattern(creature, fromPos, to, skipFields=0, diagonal=True):
         elif diff == -1:
             direction = SOUTH
 
-
     if direction != None:
         newPos = positionInDirection(currPos, direction)
 
@@ -153,6 +155,7 @@ def calculateWalkPattern(creature, fromPos, to, skipFields=0, diagonal=True):
             pattern.popleft()
     return pattern
 
+
 # Spectator list
 def getSpectators(pos, radius=(8,6), ignore=()):
     """Gives you the spectators (:class:`service.gameserver.GameProtocol`) in the area.
@@ -175,19 +178,27 @@ def getSpectators(pos, radius=(8,6), ignore=()):
 
     return players
 
-def hasSpectators(pos, radius=(8,6), ignore=()):
+
+def hasSpectators(pos, radius=(8, 6), ignore=None):
+    if not ignore:
+        ignore = ()
     """ Returns True if anyone can see the position, otherwise False. """
     for player in game.player.allPlayersObject:
-        if player.canSee(pos, radius) and player not in ignore: return True
+        if player.canSee(pos, radius) and player not in ignore:
+            return True
 
     return False
 
-def hasZLevelSpectators(pos, radius=(8,6), ignore=()):
+
+def hasZLevelSpectators(pos, radius=(8,6), ignore=None):
+    if not ignore:
+        ignore = ()
     """ Returns True if anyone can see the position, otherwise False. """
     for player in game.player.allPlayersObject:
         if pos.z == player.position.z and player.canSee(pos, radius) and player not in ignore: return True
 
     return False
+
 
 def getCreatures(pos, radius=(8,6), ignore={}):
     """Gives you the creatures in the area.
@@ -371,6 +382,7 @@ def placeItem(item, position):
         stream.addTileItem(position, stackpos, item)
         stream.send(spectator)
     return stackpos
+
 
 def relocate(fromPos, toPos):
     """ Remove all movable items on fromPos tile, to toPos tile. """
@@ -905,6 +917,7 @@ def summonCreature(name, position, master=None):
         creature.setRespawn(False)
     return creature
 
+
 def magicEffect(pos, type):
     """ Send a magic effect `type` on this position. """
     for spectator in getSpectators(pos):
@@ -912,14 +925,17 @@ def magicEffect(pos, type):
         stream.magicEffect(pos, type)
         stream.send(spectator)
 
+
 def getHouseByPos(pos):
     """ Return the House object on this position """
     return game.house.getHouseById(game.map.getHouseId(pos))
+
 
 # Speed pickler
 def fastPickler(obj):
     """ Just a allias for pickle.dumps with protocol highest protocol """
     return pickle.dumps(obj, 3)
+
 
 @gen.coroutine
 def executeCode(code):

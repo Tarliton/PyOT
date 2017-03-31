@@ -7,6 +7,7 @@ try:
     files["debugs"] = open("logs/debugs.log", "a")
 except:
     pass
+
 def writeEntry(file, data, producer="UNKNOWN", extra=""):
     global files
     if file not in files:

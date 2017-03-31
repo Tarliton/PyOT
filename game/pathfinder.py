@@ -3,7 +3,8 @@ import config
 # A cache, this can probably get pretty big, but right now it's not something I'll think about
 RouteCache = {} # {(FromX, FromY, ToZ, ToY, Z): [Route]}
 
-class Node(object):
+
+class Node:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -46,7 +47,7 @@ class Node(object):
             return self.state
             
     
-class AStar(object):
+class AStar:
     nodes = {}
     def __init__(self, checkCreature, zStart, xStart, yStart, xGoal, yGoal, instanceId, ignoreFinal):
         # Clear nodes.
@@ -248,7 +249,8 @@ class AStar(object):
                     #n.distance = abs(n.x - _final.x) + abs(n.y - _final.y)
                     n.step = SOUTHEAST
                     _openNodes.add(n)            
-            
+
+
 def findPath(checkCreature, zStart, xStart, yStart, xGoal, yGoal, instanceId, ignoreFinal = False):
     cache = config.pathfinderCache
     if cache:
@@ -285,7 +287,8 @@ def findPath(checkCreature, zStart, xStart, yStart, xGoal, yGoal, instanceId, ig
         return aStar.result
         
     return None
-    
+
+
 def clear():
     # Clear the cache entries.
     RouteCache.clear()

@@ -1,5 +1,4 @@
-class Position(object):
-    __slots__ = ('x', 'y', 'z', 'instanceId', '_hash')
+class Position:
     def __init__(self, x, y, z=7, instanceId=0):
         self.x = x
         self.y = y
@@ -31,6 +30,7 @@ class Position(object):
             self.rehash()
         return self._hash
     # Support for the old behavior of list attributes.
+
     def __setitem__(self, key, value):
         # TODO: Kill!
         if key == 0:
@@ -83,6 +83,7 @@ class Position(object):
         self.x, self.y, self.z, self.instanceId = data
         if self.instanceId is None:
             self.instanceId = 0
+
     def __repr__(self):
         if not self.instanceId:
             return "Position<%d, %d, %d>" % (self.x, self.y, self.z)
@@ -101,8 +102,10 @@ class Position(object):
         """ Makes a new position hash. Used in map """
         self._hash = self.instanceId << 40 | self.x << 24 | self.y << 8 | self.z
 
+
 class MultiPosition(Position):
     def __init__(self, instanceId=0, *argc):
+        super(MultiPosition, self).__init__()
         self.positions = argc
         self.index = 0
         self.instanceId = instanceId
@@ -136,10 +139,10 @@ class MultiPosition(Position):
             raise StopIteration
         return self
 
-class StackPosition(Position):
-    __slots__ = ('stackpos',)
 
+class StackPosition(Position):
     def __init__(self, x, y, z=7, stackpos=0, instanceId=0):
+        super(StackPosition, self).__init__()
         self.x = x
         self.y = y
         self.z = z

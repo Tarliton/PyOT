@@ -23,9 +23,7 @@ stackableItems = set()
 solidItems = set()
 sidType = {}
 ### Item ###
-class Item(object):
-    
-
+class Item:
     def __init__(self, itemId, count=1, actions=None, **kwargs):
         #itemId = 106
         attr = items[itemId]
@@ -967,11 +965,7 @@ def loadItems():
             return
         except IOError:
             pass
-          
-    if config.webClient:
-        print("> > And sprites...")
-        with open(config.spriteFile, 'rb') as file:
-            sprites = pickle.loads(file.read())
+
     # Make three new values while we are loading
     loadItems = {}
     idNameCache = {}

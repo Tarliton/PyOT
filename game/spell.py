@@ -103,8 +103,7 @@ def clear():
     targetRunes.clear()
     spells.clear()
     
-    
-    
+
 ### The new way ###
 
 def damage(mlvlMin, mlvlMax, constantMin, constantMax, type=game.const.MELEE, lvlMin=5, lvlMax=5):

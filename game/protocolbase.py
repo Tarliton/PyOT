@@ -7,10 +7,11 @@ import socket
 if config.checkAdler32:
     from zlib import adler32
 
+
 class TProtocol:
-    #__slots__ = 'gotFirst', 'xtea', 'buffer', 'nextPacketLength', 'bufferLength'
     enableTcpNoDelay = False
     webSocket = False
+
     def __init__(self, stream, address, server):
         self.transport = stream
         self.address = address

@@ -6,9 +6,8 @@ banAccounts = {}
 banPlayers = {}
 banIps = {}
 
-class BanEntry(object):
-    __slots__ = 'id', 'by', 'time', 'reason'
-    
+
+class BanEntry:
     def __init__(self, id, by, time, reason):
         self.id = id
         self.by = by

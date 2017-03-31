@@ -1,7 +1,8 @@
 import config
 from tornado import gen
 
-class CreatureAttacks(object):
+
+class CreatureAttacks:
     def hitEffects(self):
         if self.isPlayer() or self.base._blood == FLUID_BLOOD:
             return COLOR_RED, EFFECT_DRAWBLOOD

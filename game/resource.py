@@ -3,12 +3,14 @@
 ### Outfits ###
 outfits = []
 reverseOutfits = {}
-class Outfit(object):
-    def __init__(self, name="", premium=False):
+
+
+class Outfit:
+    def __init__(self, name='', premium=False):
         self.premium = premium
         self.name = name
         self.gender = None
-        self.looks = {} # gender=>(looktype ---)
+        self.looks = {}  # gender=>(looktype ---)
 
     def look(self, looktype, lookhead=0, lookbody=0, looklegs=0, lookfeet=0, gender=0):
         " Set a look based on gender. "
@@ -17,16 +19,19 @@ class Outfit(object):
     def getLook(self, gender=0):
         " Get the look based on the gender. "
         return self.looks[gender]
-        
+
 
 def regOutfit(outfit):
     """ Register a outfit for use """
     outfits.append(outfit)
     reverseOutfits[outfit.name] = len(outfits)-1
 
+
 def getOutfit(name):
     """ Get outfit by name """
     return outfits[reverseOutfits[name]]
+
+
 # Helper call
 def genOutfit(name, premium=False):
     """ Append a outfit and return the object """
@@ -37,20 +42,20 @@ def genOutfit(name, premium=False):
     outfit = Outfit(name, premium)
     regOutfit(outfit)
     return outfit
-    
-    
-    
+
+
 ### Mounts ###
 mounts = []
-reverseMounts = {} # id and name
+reverseMounts = {}  # id and name
 
-class Mount(object):
+
+class Mount:
     def __init__(self, name, cid, speed=0, premium=False):
         self.premium = premium
         self.name = name
         self.cid = cid
         self.speed = speed
-        
+
 
 def regMount(mount):
     """ Register a mount object for use. """
@@ -58,10 +63,12 @@ def regMount(mount):
     reverseMounts[mount.name] = len(mounts)-1
     reverseMounts[mount.cid] = len(mounts)-1 
 
+
 def getMount(name):
     """ Get mount by name """
     return mounts[reverseMounts[name]]
-    
+
+
 # Helper call
 def genMount(name, cid, speed=0, premium=False):
     """ Generate a mount object, register it and return it for use """
@@ -72,11 +79,13 @@ def genMount(name, cid, speed=0, premium=False):
     mount = Mount(name, cid, speed, premium)
     regMount(mount)
     return mount
-    
+
+
 ### Quest ###
 quests = []
 reverseQuests = {}
-class Quest(object):
+
+class Quest:
     def __init__(self, name):
         self.name = name
         self.steps = 0
@@ -92,7 +101,8 @@ class Quest(object):
         self.descriptions.append(description)
         self.missions[-1][2] += 1
         self.steps += 1
-        
+
+
 def genQuest(name):
     """ Generate a quest object, register it and return it for use. """
     quest = Quest(name)
@@ -102,7 +112,8 @@ def genQuest(name):
     quests.append(quest)
     reverseQuests[name] = len(quests)-1
     return quest
-    
+
+
 def getQuest(name):
     """ Get a quest, either by 'id' or name. """
     try:

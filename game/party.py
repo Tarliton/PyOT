@@ -1,4 +1,4 @@
-class Party(object):
+class Party:
     def __init__(self, leader):
         self.leader = leader
         self.members = [leader]

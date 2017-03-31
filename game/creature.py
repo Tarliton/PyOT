@@ -16,6 +16,7 @@ from game.creature_talking import CreatureTalking
 from game.creature_movement import CreatureMovement
 from game.creature_attacks import CreatureAttacks
 
+
 # Unique ids.
 def __uid():
     idsTaken = 1
@@ -28,8 +29,10 @@ uniqueId = __uid().__next__
 allCreatures = {}
 allCreaturesObject = allCreatures.values()
 
+
 class Creature(CreatureTalking, CreatureMovement, CreatureAttacks):
     itemId = 99
+
     def __init__(self, data, position, cid=None):
         self.data = data
         self.creatureType = 0
@@ -361,7 +364,6 @@ class Creature(CreatureTalking, CreatureMovement, CreatureAttacks):
             return False
 
         return True
-
 
     def modifyHealth(self, health, spawn=False):
         return self.setHealth(min(self.data["health"] + health, self.data["healthmax"]))

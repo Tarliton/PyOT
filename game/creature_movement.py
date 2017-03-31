@@ -4,7 +4,8 @@ from tornado import gen
 import config
 import traceback
 
-class CreatureMovement(object):
+
+class CreatureMovement:
     def stepDuration(self, ground):
         if not ground.speed:
             return (100.0 / self.speed) #- 0.05

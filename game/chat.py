@@ -3,6 +3,7 @@ import weakref
 channels = {}
 GLOBAL_MESSAGES = []
 
+
 class Channel(object):
     def __init__(self, name, id, public=False):
         self.id = id
@@ -65,23 +66,27 @@ class Channel(object):
         except:
             assert messageId < len(GLOBAL_MESSAGES)
             return None        
-            
+
+
 def openChannel(channelName, id = None, public=True):
     channelId = id or (len(channels) + CHANNEL_OFFSET)
     channel = Channel(channelName, channelId, public)
     channels[channelId] = channel
     return channel
 
+
 def openInstanceChannel(channelName, id):
     channelId = id
     channel = Channel(channelName, channelId, False)
     return channel
+
 
 def delChannel(channelId):
     try:
         del channels[channelId]
     except:
         pass
+
 
 def getChannelsWithPlayer(player):
     channelList = []
@@ -92,6 +97,7 @@ def getChannelsWithPlayer(player):
 
     return channelList
 
+
 def getChannels(player):
     channelList = {}
     for channelId in channels:
@@ -100,13 +106,15 @@ def getChannels(player):
             channelList[channelId] = channel
 
     return channelList
-    
+
+
 def getChannel(id):
     try:
         return channels[id]
     except:
         return
-        
+
+
 def getMessage(self, messageId):
     try:
         return GLOBAL_MESSAGES[messageId]
